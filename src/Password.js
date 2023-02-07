@@ -49,7 +49,7 @@ function Password() {
       <button className='button' onClick={(e) => {
         setPassword(generatePassword())
       }}>Generate</button>
-      <button style={styles.button} onClick={() => dispatch(addPassword(name, password))}
+      <button style={styles.button} onClick={(e) => dispatch(addPassword(name, password))}
         >Save</button>
     </div>
   </div>
