@@ -16,50 +16,53 @@ function generatePassword() {
   return strLength;
 }
 
-const styles = {
-    button: {
-    width: '100%',
-    margin:'0.5em 0',
-    padding: '0.5em',
-    border: '4px solid #4687D3',
-    borderRadius: '6px',
-    background: '#4A90E2',
-    color: '#fff'
-    }
-   }
+function strengthCheck(password) {
+    const passwordStrength = zxcvbn(this.state.password)
+    return passwordStrength(password)
+}
+console.log(strengthCheck)
 
 function Password() {
   const dispatch = useDispatch()
-  const [name, setName] = useState('')
   const [password, setPassword] = useState('p@$$w0rd')
+  const [name, setName] = useState('')
+  const [importance, setImportance] = useState('')
+  const [date, setDate] = useState('')
 
   return (
   <div>
     <input
-        placeholder="Enter Your Name"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}/>
+      placeholder="Enter Your Name"
+      type="text"
+      onChange={(e) => setName(e.target.value)}
+      value={name}
+    />
     <input 
-    type="text"
-    onChange={(e) => setPassword(e.target.value)}
-    value={password}
+      type="text"
+      onChange={(e) => setPassword(e.target.value)}
+      value={password}
+    />
+    <input
+      placeholder="How Important?"
+      type="text"
+      onChange={(e) => setImportance(e.target.value)}
+      value={importance}
+    />
+    <input
+      placeholder="Date Made"
+      type="date"
+      onChange={(e) => setDate(e.target.value)}
+      value={date}
     />
     <div>
       <button className='button' onClick={(e) => {
         setPassword(generatePassword())
       }}>Generate</button>
-      <button style={styles.button} onClick={(e) => dispatch(addPassword(name, password))}
+      <button className='button' onClick={() => dispatch(addPassword({ name, password, importance, date }))}
         >Save</button>
     </div>
   </div>
   )
 }
-
-    function strengthCheck(password) {
-        const passwordStrength = zxcvbn(this.state.password)
-        return passwordStrength(password)
-    }
-    console.log(strengthCheck)
 
 export default Password
